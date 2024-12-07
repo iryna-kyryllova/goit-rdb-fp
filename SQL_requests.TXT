@@ -42,3 +42,19 @@ ON UPDATE CASCADE;
 
 3.
 
+SELECT 
+    infectious_cases.Country_id AS Country_ID,
+    countries.entity AS Country,
+    countries.code AS Country_Code,
+    AVG(CAST(NULLIF(Number_rabies, '') AS DOUBLE)) AS Avg_Rabies,
+    MIN(CAST(NULLIF(Number_rabies, '') AS DOUBLE)) AS Min_Rabies,
+    MAX(CAST(NULLIF(Number_rabies, '') AS DOUBLE)) AS Max_Rabies,
+    SUM(CAST(NULLIF(Number_rabies, '') AS DOUBLE)) AS Sum_Rabies
+FROM infectious_cases
+JOIN countries ON infectious_cases.Country_id = countries.country_id
+GROUP BY Country_ID
+ORDER BY Avg_Rabies DESC
+LIMIT 10;
+
+4.
+
