@@ -31,10 +31,14 @@ SET SQL_SAFE_UPDATES = 1;
 
 ALTER TABLE infectious_cases
 DROP COLUMN Entity,
-DROP COLUMN Code;
+DROP COLUMN Code,
+MODIFY COLUMN Country_id INT FIRST;
 
 ALTER TABLE infectious_cases
-MODIFY COLUMN Country_id INT FIRST;
+ADD CONSTRAINT fk_country
+FOREIGN KEY (Country_id) REFERENCES countries(country_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
 
 3.
 
