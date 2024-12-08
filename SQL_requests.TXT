@@ -75,3 +75,24 @@ SET SQL_SAFE_UPDATES = 1;
 
 5.
 
+DELIMITER //
+
+CREATE FUNCTION YearDifference(input_year INT)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE first_january DATE;
+    DECLARE curr_date DATE;
+    DECLARE year_diff INT;
+
+    SET first_january = CONCAT(input_year, '-01-01');
+    SET curr_date = CURDATE();
+    SET year_diff = TIMESTAMPDIFF(YEAR, first_january, current_date);
+
+    RETURN year_diff;
+END //
+
+DELIMITER ;
+
+SELECT Year, YearDifference(Year) AS Year_Diff
+FROM infectious_cases;
