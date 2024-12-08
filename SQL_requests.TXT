@@ -58,3 +58,20 @@ LIMIT 10;
 
 4.
 
+ALTER TABLE infectious_cases
+ADD COLUMN First_January DATE,
+ADD COLUMN Curr_Date DATE,
+ADD COLUMN Year_Diff INT;
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE infectious_cases
+SET 
+    First_January = CONCAT(Year, '-01-01'),
+    Curr_Date = CURDATE(),
+    Year_Diff = TIMESTAMPDIFF(YEAR, CONCAT(Year, '-01-01'), CURDATE());
+    
+SET SQL_SAFE_UPDATES = 1;
+
+5.
+
